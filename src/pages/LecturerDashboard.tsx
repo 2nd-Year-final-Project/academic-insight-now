@@ -64,15 +64,15 @@ const LecturerDashboard = () => {
     <DashboardLayout title="Lecturer Dashboard">
       <div className="space-y-6">
         {/* Welcome Section */}
-        <div className="bg-gradient-to-r from-green-600 to-emerald-600 rounded-lg p-6 text-white">
+        <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg p-6 text-white">
           <h2 className="text-2xl font-bold mb-2">Teaching Excellence Dashboard</h2>
-          <p className="text-green-100">Monitor student progress and identify those who need additional support.</p>
+          <p className="text-purple-100">Monitor student progress and identify those who need additional support.</p>
         </div>
 
         {/* At-Risk Students Alert */}
-        <Alert className="border-red-600 bg-red-900/20 border">
-          <AlertTitle className="text-red-300">⚠️ Students At Risk</AlertTitle>
-          <AlertDescription className="text-red-200">
+        <Alert className="border-pink-600 bg-pink-900/20 border">
+          <AlertTitle className="text-pink-300">⚠️ Students At Risk</AlertTitle>
+          <AlertDescription className="text-pink-200">
             {atRiskStudents.length} students are predicted to be at risk of failing. Review their details below.
           </AlertDescription>
         </Alert>
@@ -93,7 +93,7 @@ const LecturerDashboard = () => {
                     <CardTitle className="flex justify-between items-center text-white">
                       <span>{course.code}</span>
                       {course.atRiskCount > 0 && (
-                        <Badge variant="destructive">{course.atRiskCount} at risk</Badge>
+                        <Badge className="bg-pink-600 text-pink-100">{course.atRiskCount} at risk</Badge>
                       )}
                     </CardTitle>
                     <CardDescription className="text-gray-300">{course.name}</CardDescription>
@@ -128,7 +128,7 @@ const LecturerDashboard = () => {
                           <Button 
                             size="sm" 
                             onClick={() => handleAddMarks(student)}
-                            className="bg-blue-600 hover:bg-blue-700"
+                            className="bg-purple-600 hover:bg-purple-700"
                           >
                             Add Marks
                           </Button>
@@ -143,11 +143,11 @@ const LecturerDashboard = () => {
 
           <TabsContent value="at-risk" className="space-y-4">
             {atRiskStudents.map((student) => (
-              <Card key={student.id} className="border-red-600 bg-gray-800">
+              <Card key={student.id} className="border-pink-600 bg-gray-800">
                 <CardHeader>
                   <CardTitle className="flex justify-between items-center text-white">
                     <span>{student.name}</span>
-                    <Badge variant="destructive">Predicted: {student.predictedGrade}%</Badge>
+                    <Badge className="bg-pink-600 text-pink-100">Predicted: {student.predictedGrade}%</Badge>
                   </CardTitle>
                   <CardDescription className="text-gray-300">Course: {student.course}</CardDescription>
                 </CardHeader>
@@ -156,13 +156,13 @@ const LecturerDashboard = () => {
                     <div className="text-sm font-medium text-gray-200">Risk Factors:</div>
                     <div className="flex flex-wrap gap-2">
                       {student.riskFactors.map((factor, index) => (
-                        <Badge key={index} variant="outline" className="text-red-400 border-red-600">
+                        <Badge key={index} variant="outline" className="text-pink-400 border-pink-600">
                           {factor}
                         </Badge>
                       ))}
                     </div>
                     <div className="pt-3">
-                      <Button size="sm" className="mr-2">Contact Student</Button>
+                      <Button size="sm" className="mr-2 bg-blue-600 hover:bg-blue-700">Contact Student</Button>
                       <Button size="sm" variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-700">View Full Profile</Button>
                     </div>
                   </div>

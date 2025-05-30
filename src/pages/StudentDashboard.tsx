@@ -80,9 +80,9 @@ const StudentDashboard = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'Excellent': return 'bg-green-600 text-green-100';
+      case 'Excellent': return 'bg-purple-600 text-purple-100';
       case 'On Track': return 'bg-blue-600 text-blue-100';
-      case 'At Risk': return 'bg-red-600 text-red-100';
+      case 'At Risk': return 'bg-pink-600 text-pink-100';
       default: return 'bg-gray-600 text-gray-100';
     }
   };
@@ -91,7 +91,7 @@ const StudentDashboard = () => {
     <DashboardLayout title="Student Dashboard">
       <div className="space-y-6">
         {/* Welcome Section */}
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg p-6 text-white">
+        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-6 text-white">
           <h2 className="text-2xl font-bold mb-2">Welcome to Your Academic Journey</h2>
           <p className="text-blue-100">Track your progress and stay on top of your studies with predictive insights.</p>
         </div>
@@ -129,7 +129,7 @@ const StudentDashboard = () => {
                         <Progress value={module.currentGrade} className="h-2" />
                       </div>
                       <div className="text-sm text-gray-400">
-                        Predicted Final: <span className="font-medium text-white">{module.predictedFinal}% ({getGradeLetter(module.predictedFinal)})</span>
+                        Predicted Final: <span className="font-medium text-purple-400">{getGradeLetter(module.predictedFinal)}</span>
                       </div>
                     </div>
                   </CardContent>
@@ -160,20 +160,20 @@ const StudentDashboard = () => {
                           <div className="text-sm text-gray-300">Quiz 2</div>
                         </div>
                         <div className="text-center p-3 bg-gray-700 rounded-lg">
-                          <div className="text-2xl font-bold text-green-400">{module.marks.assignment1}</div>
+                          <div className="text-2xl font-bold text-purple-400">{module.marks.assignment1}</div>
                           <div className="text-sm text-gray-300">Assignment 1</div>
                         </div>
                         <div className="text-center p-3 bg-gray-700 rounded-lg">
-                          <div className="text-2xl font-bold text-green-400">{module.marks.assignment2}</div>
+                          <div className="text-2xl font-bold text-purple-400">{module.marks.assignment2}</div>
                           <div className="text-sm text-gray-300">Assignment 2</div>
                         </div>
                         <div className="text-center p-3 bg-gray-700 rounded-lg">
-                          <div className="text-2xl font-bold text-purple-400">{module.marks.midterm}</div>
+                          <div className="text-2xl font-bold text-pink-400">{module.marks.midterm}</div>
                           <div className="text-sm text-gray-300">Midterm</div>
                         </div>
-                        <div className="text-center p-3 bg-indigo-700 rounded-lg border-2 border-indigo-500">
-                          <div className="text-2xl font-bold text-indigo-200">{module.marks.predicted}% ({getGradeLetter(module.marks.predicted)})</div>
-                          <div className="text-sm text-indigo-200 font-medium">Predicted Final</div>
+                        <div className="text-center p-3 bg-purple-700 rounded-lg border-2 border-purple-500">
+                          <div className="text-2xl font-bold text-purple-200">{getGradeLetter(module.marks.predicted)}</div>
+                          <div className="text-sm text-purple-200 font-medium">Predicted Final</div>
                         </div>
                       </div>
                     );

@@ -45,9 +45,9 @@ const AdminDashboard = () => {
     <DashboardLayout title="Admin Dashboard">
       <div className="space-y-6">
         {/* Welcome Section */}
-        <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg p-6 text-white">
+        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-6 text-white">
           <h2 className="text-2xl font-bold mb-2">System Administration</h2>
-          <p className="text-purple-100">Manage users, courses, and system configurations.</p>
+          <p className="text-blue-100">Manage users, courses, and system configurations.</p>
         </div>
 
         {/* Stats Overview */}
@@ -66,7 +66,7 @@ const AdminDashboard = () => {
               <CardTitle className="text-sm font-medium text-gray-200">Total Lecturers</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-green-400">{systemStats.totalLecturers}</div>
+              <div className="text-2xl font-bold text-purple-400">{systemStats.totalLecturers}</div>
             </CardContent>
           </Card>
           
@@ -75,7 +75,7 @@ const AdminDashboard = () => {
               <CardTitle className="text-sm font-medium text-gray-200">Active Courses</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-purple-400">{systemStats.activeCourses}</div>
+              <div className="text-2xl font-bold text-blue-400">{systemStats.activeCourses}</div>
             </CardContent>
           </Card>
           
@@ -84,7 +84,7 @@ const AdminDashboard = () => {
               <CardTitle className="text-sm font-medium text-gray-200">Pending Verifications</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-orange-400">{systemStats.pendingVerifications}</div>
+              <div className="text-2xl font-bold text-pink-400">{systemStats.pendingVerifications}</div>
             </CardContent>
           </Card>
         </div>
@@ -146,7 +146,7 @@ const AdminDashboard = () => {
                         <div className="text-sm text-gray-400">Department: {lecturer.department}</div>
                       </div>
                       <div className="flex items-center space-x-3">
-                        <span className="text-lg font-bold text-blue-400">{lecturer.courses} courses</span>
+                        <span className="text-lg font-bold text-purple-400">{lecturer.courses} courses</span>
                         <Button size="sm" variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-700">
                           Manage
                         </Button>

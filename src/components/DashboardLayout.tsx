@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useNavigate } from 'react-router-dom';
 import { toast } from '@/hooks/use-toast';
+import { Bell } from 'lucide-react';
+import { Badge } from "@/components/ui/badge";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -34,10 +36,16 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, title }) =>
               </span>
             </div>
             <div className="flex items-center space-x-4">
+              <div className="relative">
+                <Bell className="h-6 w-6 text-gray-300 hover:text-white cursor-pointer" />
+                <Badge className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs h-5 w-5 rounded-full flex items-center justify-center p-0">
+                  3
+                </Badge>
+              </div>
               <span className="text-sm text-gray-300">
                 Welcome, {user?.name}
               </span>
-              <span className="text-xs bg-blue-600 text-blue-100 px-2 py-1 rounded-full capitalize">
+              <span className="text-xs bg-purple-600 text-purple-100 px-2 py-1 rounded-full capitalize">
                 {user?.role}
               </span>
               <Button variant="outline" size="sm" onClick={handleLogout} className="border-gray-600 text-gray-300 hover:bg-gray-700">
