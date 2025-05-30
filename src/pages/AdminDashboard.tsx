@@ -13,22 +13,22 @@ const AdminDashboard = () => {
 
   const systemStats = {
     totalStudents: 1247,
-    totalLecturers: 89,
+    totalLecturers: 81,
     activeCourses: 156,
     pendingVerifications: 12
   };
 
   const allStudents = [
-    { id: '1', name: 'Alice Johnson', email: 'alice.j@university.edu', course: 'Computer Science', attendance: 85, motivation: 7, teacherQuality: 8 },
-    { id: '2', name: 'Bob Williams', email: 'bob.w@university.edu', course: 'Data Science', attendance: 92, motivation: 9, teacherQuality: 9 },
-    { id: '3', name: 'Carol Davis', email: 'carol.d@university.edu', course: 'Web Development', attendance: 78, motivation: 6, teacherQuality: 7 },
-    { id: '4', name: 'David Miller', email: 'david.m@university.edu', course: 'Computer Science', attendance: 95, motivation: 8, teacherQuality: 9 },
+    { id: '1', name: 'Akila Fernando', email: 'AkilaF@university.edu', course: 'Computer Science', attendance: 85, motivation: 7, teacherQuality: 8 },
+    { id: '2', name: 'Hiruna Mendis', email: 'HirunaM@university.edu', course: 'Computer Science', attendance: 92, motivation: 9, teacherQuality: 9 },
+    { id: '3', name: 'Anujaya Jayanath', email: 'AnujayaJ@university.edu', course: 'Computer Science', attendance: 78, motivation: 6, teacherQuality: 7 },
+    { id: '4', name: 'Renuja Sathnidu', email: 'RenujaS@university.edu', course: 'Computer Science', attendance: 95, motivation: 8, teacherQuality: 9 },
   ];
 
   const allLecturers = [
-    { id: '1', name: 'Dr. Sarah Johnson', email: 'dr.johnson@university.edu', department: 'Computer Science', courses: 3 },
-    { id: '2', name: 'Prof. Michael Smith', email: 'prof.smith@university.edu', department: 'Mathematics', courses: 2 },
-    { id: '3', name: 'Dr. Emily Davis', email: 'dr.davis@university.edu', department: 'Data Science', courses: 4 },
+    { id: '1', name: 'Prof. N. G. J.Dias', email: 'ngjdias@kln.ac.lk', department: 'Computer Science', courses: 3 },
+    { id: '2', name: 'Dr. Rasika Rajapaksha', email: 'rasikar@kln.ac.lk', department: 'Computer Science', courses: 2 },
+    { id: '3', name: 'Prof. Dhammika weerasinghe', email: 'hesiri@kln.ac.lk', department: 'Computer Science', courses: 4 },
   ];
 
   const handleStudentClick = (student) => {
