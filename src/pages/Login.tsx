@@ -25,7 +25,7 @@ const Login = () => {
       
       const mockUser = {
         id: '1',
-        name: 'John Doe',
+        name: 'Akila Fernando',
         email: credentials.email,
         role
       };
