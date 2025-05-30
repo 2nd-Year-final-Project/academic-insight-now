@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -40,31 +39,10 @@ const App = () => {
             <Route path="/signup" element={<Signup />} />
             <Route path="/unauthorized" element={<Unauthorized />} />
             
-            {/* Protected Routes */}
-            <Route 
-              path="/student" 
-              element={
-                <ProtectedRoute allowedRoles={['student']}>
-                  <StudentDashboard />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/lecturer" 
-              element={
-                <ProtectedRoute allowedRoles={['lecturer']}>
-                  <LecturerDashboard />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/admin" 
-              element={
-                <ProtectedRoute allowedRoles={['admin']}>
-                  <AdminDashboard />
-                </ProtectedRoute>
-              } 
-            />
+            {/* Direct Access Routes - No Protection */}
+            <Route path="/student" element={<StudentDashboard />} />
+            <Route path="/lecturer" element={<LecturerDashboard />} />
+            <Route path="/admin" element={<AdminDashboard />} />
             
             {/* Default redirect */}
             <Route path="/" element={<Navigate to={getDefaultRoute()} replace />} />
