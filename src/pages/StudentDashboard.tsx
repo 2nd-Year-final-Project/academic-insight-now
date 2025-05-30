@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import DashboardLayout from '@/components/DashboardLayout';
+import PersonalDataForm from '@/components/PersonalDataForm';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
@@ -9,6 +10,22 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const StudentDashboard = () => {
   const [selectedModule, setSelectedModule] = useState<string | null>(null);
+
+  // Function to convert percentage to grade letter
+  const getGradeLetter = (percentage: number): string => {
+    if (percentage >= 90) return 'A+';
+    if (percentage >= 85) return 'A';
+    if (percentage >= 80) return 'A-';
+    if (percentage >= 75) return 'B+';
+    if (percentage >= 70) return 'B';
+    if (percentage >= 65) return 'B-';
+    if (percentage >= 60) return 'C+';
+    if (percentage >= 55) return 'C';
+    if (percentage >= 50) return 'C-';
+    if (percentage >= 45) return 'D+';
+    if (percentage >= 40) return 'D';
+    return 'F';
+  };
 
   const modules = [
     {
@@ -63,10 +80,10 @@ const StudentDashboard = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'Excellent': return 'bg-green-100 text-green-800';
-      case 'On Track': return 'bg-blue-100 text-blue-800';
-      case 'At Risk': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'Excellent': return 'bg-green-600 text-green-100';
+      case 'On Track': return 'bg-blue-600 text-blue-100';
+      case 'At Risk': return 'bg-red-600 text-red-100';
+      default: return 'bg-gray-600 text-gray-100';
     }
   };
 
@@ -80,22 +97,22 @@ const StudentDashboard = () => {
         </div>
 
         <Tabs defaultValue="modules" className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="modules">My Modules</TabsTrigger>
-            <TabsTrigger value="personal">Personal Data</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-2 bg-gray-800">
+            <TabsTrigger value="modules" className="data-[state=active]:bg-gray-700">My Modules</TabsTrigger>
+            <TabsTrigger value="personal" className="data-[state=active]:bg-gray-700">Personal Data</TabsTrigger>
           </TabsList>
 
           <TabsContent value="modules" className="space-y-4">
             {/* Modules Overview */}
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {modules.map((module) => (
-                <Card key={module.id} className="hover:shadow-md transition-shadow cursor-pointer"
+                <Card key={module.id} className="hover:shadow-md transition-shadow cursor-pointer bg-gray-800 border-gray-700"
                       onClick={() => setSelectedModule(module.id)}>
                   <CardHeader className="pb-3">
                     <div className="flex justify-between items-start">
                       <div>
-                        <CardTitle className="text-lg">{module.code}</CardTitle>
-                        <CardDescription className="text-sm">{module.name}</CardDescription>
+                        <CardTitle className="text-lg text-white">{module.code}</CardTitle>
+                        <CardDescription className="text-sm text-gray-300">{module.name}</CardDescription>
                       </div>
                       <Badge className={getStatusColor(module.status)}>
                         {module.status}
@@ -106,13 +123,13 @@ const StudentDashboard = () => {
                     <div className="space-y-3">
                       <div>
                         <div className="flex justify-between text-sm mb-1">
-                          <span>Current Grade</span>
-                          <span className="font-medium">{module.currentGrade}%</span>
+                          <span className="text-gray-300">Current Grade</span>
+                          <span className="font-medium text-white">{module.currentGrade}% ({getGradeLetter(module.currentGrade)})</span>
                         </div>
                         <Progress value={module.currentGrade} className="h-2" />
                       </div>
-                      <div className="text-sm text-gray-600">
-                        Predicted Final: <span className="font-medium text-gray-900">{module.predictedFinal}%</span>
+                      <div className="text-sm text-gray-400">
+                        Predicted Final: <span className="font-medium text-white">{module.predictedFinal}% ({getGradeLetter(module.predictedFinal)})</span>
                       </div>
                     </div>
                   </CardContent>
@@ -122,10 +139,10 @@ const StudentDashboard = () => {
 
             {/* Detailed View */}
             {selectedModule && (
-              <Card className="mt-6">
+              <Card className="mt-6 bg-gray-800 border-gray-700">
                 <CardHeader>
-                  <CardTitle>Detailed Marks - {modules.find(m => m.id === selectedModule)?.name}</CardTitle>
-                  <CardDescription>Complete breakdown of your performance</CardDescription>
+                  <CardTitle className="text-white">Detailed Marks - {modules.find(m => m.id === selectedModule)?.name}</CardTitle>
+                  <CardDescription className="text-gray-300">Complete breakdown of your performance</CardDescription>
                 </CardHeader>
                 <CardContent>
                   {(() => {
@@ -134,29 +151,29 @@ const StudentDashboard = () => {
                     
                     return (
                       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                        <div className="text-center p-3 bg-gray-50 rounded-lg">
-                          <div className="text-2xl font-bold text-blue-600">{module.marks.quiz1}</div>
-                          <div className="text-sm text-gray-600">Quiz 1</div>
+                        <div className="text-center p-3 bg-gray-700 rounded-lg">
+                          <div className="text-2xl font-bold text-blue-400">{module.marks.quiz1}</div>
+                          <div className="text-sm text-gray-300">Quiz 1</div>
                         </div>
-                        <div className="text-center p-3 bg-gray-50 rounded-lg">
-                          <div className="text-2xl font-bold text-blue-600">{module.marks.quiz2}</div>
-                          <div className="text-sm text-gray-600">Quiz 2</div>
+                        <div className="text-center p-3 bg-gray-700 rounded-lg">
+                          <div className="text-2xl font-bold text-blue-400">{module.marks.quiz2}</div>
+                          <div className="text-sm text-gray-300">Quiz 2</div>
                         </div>
-                        <div className="text-center p-3 bg-gray-50 rounded-lg">
-                          <div className="text-2xl font-bold text-green-600">{module.marks.assignment1}</div>
-                          <div className="text-sm text-gray-600">Assignment 1</div>
+                        <div className="text-center p-3 bg-gray-700 rounded-lg">
+                          <div className="text-2xl font-bold text-green-400">{module.marks.assignment1}</div>
+                          <div className="text-sm text-gray-300">Assignment 1</div>
                         </div>
-                        <div className="text-center p-3 bg-gray-50 rounded-lg">
-                          <div className="text-2xl font-bold text-green-600">{module.marks.assignment2}</div>
-                          <div className="text-sm text-gray-600">Assignment 2</div>
+                        <div className="text-center p-3 bg-gray-700 rounded-lg">
+                          <div className="text-2xl font-bold text-green-400">{module.marks.assignment2}</div>
+                          <div className="text-sm text-gray-300">Assignment 2</div>
                         </div>
-                        <div className="text-center p-3 bg-gray-50 rounded-lg">
-                          <div className="text-2xl font-bold text-purple-600">{module.marks.midterm}</div>
-                          <div className="text-sm text-gray-600">Midterm</div>
+                        <div className="text-center p-3 bg-gray-700 rounded-lg">
+                          <div className="text-2xl font-bold text-purple-400">{module.marks.midterm}</div>
+                          <div className="text-sm text-gray-300">Midterm</div>
                         </div>
-                        <div className="text-center p-3 bg-indigo-50 rounded-lg border-2 border-indigo-200">
-                          <div className="text-2xl font-bold text-indigo-600">{module.marks.predicted}</div>
-                          <div className="text-sm text-indigo-600 font-medium">Predicted Final</div>
+                        <div className="text-center p-3 bg-indigo-700 rounded-lg border-2 border-indigo-500">
+                          <div className="text-2xl font-bold text-indigo-200">{module.marks.predicted}% ({getGradeLetter(module.marks.predicted)})</div>
+                          <div className="text-sm text-indigo-200 font-medium">Predicted Final</div>
                         </div>
                       </div>
                     );
@@ -167,20 +184,7 @@ const StudentDashboard = () => {
           </TabsContent>
 
           <TabsContent value="personal" className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>Personal Data for Predictive Analytics</CardTitle>
-                <CardDescription>
-                  Help us provide better predictions by updating your personal information
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-8 text-gray-500">
-                  <p>Personal data form will be implemented in the next phase.</p>
-                  <p className="text-sm mt-2">This will include study hours, sleep patterns, and other factors.</p>
-                </div>
-              </CardContent>
-            </Card>
+            <PersonalDataForm />
           </TabsContent>
         </Tabs>
       </div>

@@ -22,25 +22,25 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, title }) =>
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-900 text-white">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="bg-gray-800 shadow-sm border-b border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <h1 className="text-xl font-bold text-gray-900">EduPredict LMS</h1>
-              <span className="ml-4 text-sm text-gray-500">
+              <h1 className="text-xl font-bold text-white">EduPredict LMS</h1>
+              <span className="ml-4 text-sm text-gray-300">
                 {title}
               </span>
             </div>
             <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-700">
+              <span className="text-sm text-gray-300">
                 Welcome, {user?.name}
               </span>
-              <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full capitalize">
+              <span className="text-xs bg-blue-600 text-blue-100 px-2 py-1 rounded-full capitalize">
                 {user?.role}
               </span>
-              <Button variant="outline" size="sm" onClick={handleLogout}>
+              <Button variant="outline" size="sm" onClick={handleLogout} className="border-gray-600 text-gray-300 hover:bg-gray-700">
                 Logout
               </Button>
             </div>

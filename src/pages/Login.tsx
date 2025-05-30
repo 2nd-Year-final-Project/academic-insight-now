@@ -20,12 +20,14 @@ const Login = () => {
 
     // Mock authentication - replace with actual API call
     setTimeout(() => {
+      const role: 'student' | 'lecturer' | 'admin' = credentials.email.includes('admin') ? 'admin' : 
+              credentials.email.includes('lecturer') ? 'lecturer' : 'student';
+      
       const mockUser = {
         id: '1',
         name: 'John Doe',
         email: credentials.email,
-        role: credentials.email.includes('admin') ? 'admin' : 
-              credentials.email.includes('lecturer') ? 'lecturer' : 'student'
+        role
       };
       
       setUser(mockUser);
@@ -48,16 +50,16 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
-      <Card className="w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-black p-4">
+      <Card className="w-full max-w-md bg-gray-800 border-gray-700">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold text-gray-900">EduPredict LMS</CardTitle>
-          <CardDescription>Sign in to your account</CardDescription>
+          <CardTitle className="text-2xl font-bold text-white">EduPredict LMS</CardTitle>
+          <CardDescription className="text-gray-300">Sign in to your account</CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">University Email</Label>
+              <Label htmlFor="email" className="text-gray-200">University Email</Label>
               <Input
                 id="email"
                 type="email"
@@ -65,16 +67,18 @@ const Login = () => {
                 value={credentials.email}
                 onChange={(e) => setCredentials(prev => ({ ...prev, email: e.target.value }))}
                 required
+                className="bg-gray-700 border-gray-600 text-white"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password" className="text-gray-200">Password</Label>
               <Input
                 id="password"
                 type="password"
                 value={credentials.password}
                 onChange={(e) => setCredentials(prev => ({ ...prev, password: e.target.value }))}
                 required
+                className="bg-gray-700 border-gray-600 text-white"
               />
             </div>
           </CardContent>
@@ -82,9 +86,9 @@ const Login = () => {
             <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading ? 'Signing in...' : 'Sign In'}
             </Button>
-            <p className="text-sm text-center text-gray-600">
+            <p className="text-sm text-center text-gray-400">
               Don't have an account?{' '}
-              <Link to="/signup" className="text-blue-600 hover:underline">
+              <Link to="/signup" className="text-blue-400 hover:underline">
                 Sign up
               </Link>
             </p>

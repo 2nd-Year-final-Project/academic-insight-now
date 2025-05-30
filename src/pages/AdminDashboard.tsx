@@ -1,12 +1,16 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import DashboardLayout from '@/components/DashboardLayout';
+import StudentDetailsModal from '@/components/StudentDetailsModal';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const AdminDashboard = () => {
+  const [selectedStudent, setSelectedStudent] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const systemStats = {
     totalStudents: 1247,
     totalLecturers: 89,
@@ -14,17 +18,28 @@ const AdminDashboard = () => {
     pendingVerifications: 12
   };
 
-  const recentUsers = [
-    { id: '1', name: 'Alice Johnson', email: 'alice.j@university.edu', role: 'student', status: 'pending' },
-    { id: '2', name: 'Dr. Smith', email: 'dr.smith@university.edu', role: 'lecturer', status: 'verified' },
-    { id: '3', name: 'Bob Williams', email: 'bob.w@university.edu', role: 'student', status: 'pending' }
+  const allStudents = [
+    { id: '1', name: 'Alice Johnson', email: 'alice.j@university.edu', course: 'Computer Science', attendance: 85, motivation: 7, teacherQuality: 8 },
+    { id: '2', name: 'Bob Williams', email: 'bob.w@university.edu', course: 'Data Science', attendance: 92, motivation: 9, teacherQuality: 9 },
+    { id: '3', name: 'Carol Davis', email: 'carol.d@university.edu', course: 'Web Development', attendance: 78, motivation: 6, teacherQuality: 7 },
+    { id: '4', name: 'David Miller', email: 'david.m@university.edu', course: 'Computer Science', attendance: 95, motivation: 8, teacherQuality: 9 },
   ];
 
-  const courses = [
-    { id: '1', name: 'Computer Science Fundamentals', code: 'CS101', students: 45, lecturer: 'Dr. Johnson' },
-    { id: '2', name: 'Data Structures', code: 'CS201', students: 38, lecturer: 'Dr. Smith' },
-    { id: '3', name: 'Web Development', code: 'CS301', students: 52, lecturer: 'Prof. Williams' }
+  const allLecturers = [
+    { id: '1', name: 'Dr. Sarah Johnson', email: 'dr.johnson@university.edu', department: 'Computer Science', courses: 3 },
+    { id: '2', name: 'Prof. Michael Smith', email: 'prof.smith@university.edu', department: 'Mathematics', courses: 2 },
+    { id: '3', name: 'Dr. Emily Davis', email: 'dr.davis@university.edu', department: 'Data Science', courses: 4 },
   ];
+
+  const handleStudentClick = (student) => {
+    setSelectedStudent(student);
+    setIsModalOpen(true);
+  };
+
+  const handleSaveStudentData = (studentId, data) => {
+    console.log('Saving data for student:', studentId, data);
+    // Here you would typically update the backend
+  };
 
   return (
     <DashboardLayout title="Admin Dashboard">
@@ -37,121 +52,117 @@ const AdminDashboard = () => {
 
         {/* Stats Overview */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <Card>
+          <Card className="bg-gray-800 border-gray-700">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Students</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-200">Total Students</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-blue-600">{systemStats.totalStudents}</div>
+              <div className="text-2xl font-bold text-blue-400">{systemStats.totalStudents}</div>
             </CardContent>
           </Card>
           
-          <Card>
+          <Card className="bg-gray-800 border-gray-700">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Lecturers</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-200">Total Lecturers</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-green-600">{systemStats.totalLecturers}</div>
+              <div className="text-2xl font-bold text-green-400">{systemStats.totalLecturers}</div>
             </CardContent>
           </Card>
           
-          <Card>
+          <Card className="bg-gray-800 border-gray-700">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active Courses</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-200">Active Courses</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-purple-600">{systemStats.activeCourses}</div>
+              <div className="text-2xl font-bold text-purple-400">{systemStats.activeCourses}</div>
             </CardContent>
           </Card>
           
-          <Card>
+          <Card className="bg-gray-800 border-gray-700">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Pending Verifications</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-200">Pending Verifications</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-orange-600">{systemStats.pendingVerifications}</div>
+              <div className="text-2xl font-bold text-orange-400">{systemStats.pendingVerifications}</div>
             </CardContent>
           </Card>
         </div>
 
-        <Tabs defaultValue="users" className="w-full">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="users">User Management</TabsTrigger>
-            <TabsTrigger value="courses">Course Management</TabsTrigger>
-            <TabsTrigger value="system">System Settings</TabsTrigger>
+        <Tabs defaultValue="students" className="w-full">
+          <TabsList className="grid w-full grid-cols-3 bg-gray-800">
+            <TabsTrigger value="students" className="data-[state=active]:bg-gray-700">All Students</TabsTrigger>
+            <TabsTrigger value="lecturers" className="data-[state=active]:bg-gray-700">All Lecturers</TabsTrigger>
+            <TabsTrigger value="system" className="data-[state=active]:bg-gray-700">System Settings</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="users" className="space-y-4">
-            <Card>
+          <TabsContent value="students" className="space-y-4">
+            <Card className="bg-gray-800 border-gray-700">
               <CardHeader>
-                <CardTitle>Recent User Registrations</CardTitle>
-                <CardDescription>Review and verify new user accounts</CardDescription>
+                <CardTitle className="text-white">All Students</CardTitle>
+                <CardDescription className="text-gray-300">Click on a student to input administrative data</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  {recentUsers.map((user) => (
-                    <div key={user.id} className="flex items-center justify-between p-3 border rounded-lg">
+                  {allStudents.map((student) => (
+                    <div 
+                      key={student.id} 
+                      className="flex items-center justify-between p-3 border border-gray-700 rounded-lg hover:bg-gray-700 cursor-pointer transition-colors"
+                      onClick={() => handleStudentClick(student)}
+                    >
                       <div>
-                        <div className="font-medium">{user.name}</div>
-                        <div className="text-sm text-gray-600">{user.email}</div>
+                        <div className="font-medium text-white">{student.name}</div>
+                        <div className="text-sm text-gray-400">{student.email}</div>
+                        <div className="text-sm text-gray-400">Course: {student.course}</div>
                       </div>
-                      <div className="flex items-center space-x-3">
-                        <Badge variant={user.role === 'lecturer' ? 'default' : 'secondary'}>
-                          {user.role}
+                      <div className="flex items-center space-x-2">
+                        <Badge variant="outline" className="border-gray-600 text-gray-300">
+                          Attendance: {student.attendance}%
                         </Badge>
-                        <Badge variant={user.status === 'verified' ? 'default' : 'destructive'}>
-                          {user.status}
-                        </Badge>
-                        {user.status === 'pending' && (
-                          <div className="space-x-2">
-                            <Button size="sm" variant="outline">Verify</Button>
-                            <Button size="sm" variant="destructive">Reject</Button>
-                          </div>
-                        )}
+                        <Button size="sm" variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-700">
+                          View Details
+                        </Button>
                       </div>
                     </div>
                   ))}
-                </div>
-                <div className="mt-4">
-                  <Button>View All Users</Button>
                 </div>
               </CardContent>
             </Card>
           </TabsContent>
 
-          <TabsContent value="courses" className="space-y-4">
-            <Card>
+          <TabsContent value="lecturers" className="space-y-4">
+            <Card className="bg-gray-800 border-gray-700">
               <CardHeader>
-                <CardTitle>Course Management</CardTitle>
-                <CardDescription>Manage academic courses and enrollment</CardDescription>
+                <CardTitle className="text-white">All Lecturers</CardTitle>
+                <CardDescription className="text-gray-300">Manage lecturer accounts and course assignments</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  {courses.map((course) => (
-                    <div key={course.id} className="flex items-center justify-between p-3 border rounded-lg">
+                  {allLecturers.map((lecturer) => (
+                    <div key={lecturer.id} className="flex items-center justify-between p-3 border border-gray-700 rounded-lg">
                       <div>
-                        <div className="font-medium">{course.code} - {course.name}</div>
-                        <div className="text-sm text-gray-600">Lecturer: {course.lecturer}</div>
+                        <div className="font-medium text-white">{lecturer.name}</div>
+                        <div className="text-sm text-gray-400">{lecturer.email}</div>
+                        <div className="text-sm text-gray-400">Department: {lecturer.department}</div>
                       </div>
                       <div className="flex items-center space-x-3">
-                        <span className="text-lg font-bold">{course.students} students</span>
-                        <Button size="sm" variant="outline">Edit</Button>
+                        <span className="text-lg font-bold text-blue-400">{lecturer.courses} courses</span>
+                        <Button size="sm" variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-700">
+                          Manage
+                        </Button>
                       </div>
                     </div>
                   ))}
-                </div>
-                <div className="mt-4">
-                  <Button>Add New Course</Button>
                 </div>
               </CardContent>
             </Card>
           </TabsContent>
 
           <TabsContent value="system" className="space-y-4">
-            <Card>
+            <Card className="bg-gray-800 border-gray-700">
               <CardHeader>
-                <CardTitle>System Configuration</CardTitle>
-                <CardDescription>Manage system-wide settings and preferences</CardDescription>
+                <CardTitle className="text-white">System Configuration</CardTitle>
+                <CardDescription className="text-gray-300">Manage system-wide settings and preferences</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="text-center py-8 text-gray-500">
@@ -162,6 +173,13 @@ const AdminDashboard = () => {
             </Card>
           </TabsContent>
         </Tabs>
+
+        <StudentDetailsModal
+          student={selectedStudent}
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onSave={handleSaveStudentData}
+        />
       </div>
     </DashboardLayout>
   );
